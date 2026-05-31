@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>陈佳欣 · Jiaxin Chen — 海外电商运营</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Serif+SC:wght@400;500;600&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f3f1ea;
+  --panel:#faf9f4;
+  --ink:#19181d;
+  --soft:#403e47;
+  --muted:#8a8791;
+  --line:rgba(25,24,29,.16);
+  --line2:rgba(25,24,29,.08);
+  --accent:#1f3ad6;
+  --mono:'IBM Plex Mono',monospace;
+  --disp:'Space Grotesk','Noto Sans SC',sans-serif;
+  --serif:'Noto Serif SC',serif;
+  --sans:'Noto Sans SC','Space Grotesk',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--accent);color:#fff}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1200px;margin:0 auto;padding:0 40px}
+.mono{font-family:var(--mono)}
+
+/* grain + hairline frame */
+.frame{position:fixed;inset:14px;border:1px solid var(--line);pointer-events:none;z-index:40}
+@media(max-width:640px){.frame{inset:8px}}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(243,241,234,.82);backdrop-filter:blur(10px);transition:.3s}
+nav.scrolled{box-shadow:0 1px 0 var(--line)}
+.nav-in{max-width:1200px;margin:0 auto;padding:22px 40px;display:flex;align-items:center;justify-content:space-between}
+.brand{font-family:var(--disp);font-weight:600;font-size:16px;letter-spacing:.01em;display:flex;align-items:center;gap:10px}
+.brand .sq{width:8px;height:8px;background:var(--accent)}
+.brand .cn{color:var(--muted);font-weight:400;font-size:12px}
+.nav-links{display:flex;gap:30px;font-family:var(--mono);font-size:12.5px;color:var(--soft)}
+.nav-links a{position:relative;transition:color .2s}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a span{color:var(--muted);margin-right:5px}
+.nav-cta{font-family:var(--mono);font-size:12.5px;color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:2px;transition:.2s}
+.nav-cta:hover{color:var(--accent);border-color:var(--accent)}
+@media(max-width:860px){.nav-links{display:none}}
+
+/* HERO */
+header{padding:180px 0 80px}
+.meta-row{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0;margin-bottom:64px}
+.meta-cell .k{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.meta-cell .v{font-family:var(--mono);font-size:13.5px;color:var(--ink)}
+.meta-cell .v.acc{color:var(--accent)}
+@media(max-width:760px){.meta-row{grid-template-columns:repeat(2,1fr);gap:18px}}
+
+.sec-mark{font-family:var(--mono);font-size:13px;color:var(--soft);margin-bottom:30px;display:flex;align-items:center;gap:10px}
+.sec-mark::before{content:'§';color:var(--accent);font-size:15px}
+h1.name{font-family:var(--disp);font-weight:600;font-size:clamp(72px,15vw,210px);line-height:.9;letter-spacing:-.035em}
+h1.name .sub{display:block;font-family:var(--mono);font-size:clamp(13px,1.6vw,17px);font-weight:400;color:var(--muted);letter-spacing:.16em;margin-top:24px;text-transform:uppercase}
+h1.name .sub b{color:var(--soft);font-weight:400}
+.hero-tag{font-family:var(--serif);font-size:clamp(21px,2.8vw,30px);color:var(--soft);margin:48px 0 0;line-height:1.5;max-width:660px;text-wrap:pretty}
+.hero-tag .en{display:block;font-family:var(--mono);font-size:14px;color:var(--muted);margin-top:12px;letter-spacing:.02em}
+.hero-cta{display:flex;gap:16px;margin-top:44px;flex-wrap:wrap}
+.btn{font-family:var(--mono);font-size:13.5px;padding:14px 28px;transition:.25s;cursor:pointer;display:inline-flex;align-items:center;gap:9px}
+.btn-primary{background:var(--ink);color:var(--paper)}
+.btn-primary:hover{background:var(--accent)}
+.btn-ghost{border:1px solid var(--line);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--ink)}
+
+.an{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rise{from{transform:translateY(22px)}to{transform:none}}
+.an.d1{animation-delay:.04s}.an.d2{animation-delay:.13s}.an.d3{animation-delay:.24s}.an.d4{animation-delay:.34s}
+@media(max-width:860px){.nav-links{display:none}}
+
+/* ticker */
+.ticker{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;white-space:nowrap;margin-top:64px}
+.ticker-track{display:inline-flex;animation:slide 30s linear infinite;font-family:var(--mono);font-size:13px;color:var(--soft);padding:14px 0;letter-spacing:.04em}
+.ticker-track span{padding-right:42px}
+.ticker-track b{color:var(--accent);font-weight:500}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* sections */
+section{padding:96px 0;position:relative}
+.head{display:grid;grid-template-columns:200px 1fr;gap:30px;align-items:baseline;margin-bottom:54px;border-bottom:1px solid var(--line);padding-bottom:22px}
+.head .label{font-family:var(--mono);font-size:13px;color:var(--soft)}
+.head .label .num{color:var(--accent)}
+.head h2{font-family:var(--disp);font-weight:600;font-size:clamp(28px,4vw,44px);letter-spacing:-.02em}
+.head h2 small{display:block;font-family:var(--mono);font-size:13px;font-weight:400;color:var(--muted);margin-top:8px;letter-spacing:.06em}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s,transform .8s}
+.reveal.in{opacity:1;transform:none}
+@media(max-width:760px){.head{grid-template-columns:1fr;gap:12px}}
+
+/* about */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.about .lead{font-family:var(--serif);font-size:clamp(20px,2.5vw,26px);line-height:1.55;color:var(--ink);text-wrap:pretty}
+.about .lead em{font-style:normal;color:var(--accent)}
+.about .body{font-size:16px;color:var(--soft);margin-top:22px;text-wrap:pretty}
+.edu .edu-item{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:20px 0;border-top:1px solid var(--line2)}
+.edu .edu-item:first-child{border-top:0}
+.edu .yr{font-family:var(--mono);font-size:12px;color:var(--muted);padding-top:3px}
+.edu .sch{font-weight:600;font-size:17px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.edu .tag{font-family:var(--mono);font-size:10px;letter-spacing:.04em;padding:2px 8px;border:1px solid var(--accent);color:var(--accent)}
+.edu .deg{font-size:14px;color:var(--soft);margin-top:4px}
+@media(max-width:760px){.about{grid-template-columns:1fr;gap:36px}}
+
+/* experience */
+.exp-item{display:grid;grid-template-columns:160px 1fr;gap:36px;padding:38px 0;border-top:1px solid var(--line);transition:.3s}
+.exp-item:hover{background:linear-gradient(90deg,rgba(31,58,214,.04),transparent 70%)}
+.exp-meta .date{font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+.exp-meta .loc{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:6px}
+.exp-co{font-family:var(--disp);font-weight:600;font-size:23px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.exp-co .role{font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:400;padding:3px 9px;border:1px solid var(--line);border-radius:2px}
+.exp-body{list-style:none;margin-top:16px;font-size:15.5px;color:var(--soft)}
+.exp-body li{position:relative;padding-left:22px;margin-bottom:10px;text-wrap:pretty}
+.exp-body li::before{content:'—';position:absolute;left:0;color:var(--accent)}
+.exp-body li b{color:var(--ink);font-weight:600}
+.exp-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.tag-pill{font-family:var(--mono);font-size:11px;padding:4px 11px;background:var(--panel);border:1px solid var(--line2);color:var(--soft)}
+@media(max-width:760px){.exp-item{grid-template-columns:1fr;gap:14px}}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line2);border:1px solid var(--line2)}
+.skill{background:var(--paper);padding:30px}
+.skill .k{font-family:var(--mono);font-size:11.5px;color:var(--accent);letter-spacing:.06em;text-transform:uppercase;margin-bottom:16px}
+.skill h3{font-size:19px;font-weight:600;margin-bottom:16px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--mono);font-size:12px;padding:6px 12px;border:1px solid var(--line);color:var(--soft);transition:.2s}
+.chip:hover{border-color:var(--ink);color:var(--ink)}
+.chip.key{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+@media(max-width:760px){.skills{grid-template-columns:1fr}}
+
+/* honors */
+.honors{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line2);border:1px solid var(--line2)}
+.honor{background:var(--paper);padding:24px 28px;display:grid;grid-template-columns:auto 56px 1fr;gap:16px;align-items:center;transition:.2s}
+.honor:hover{background:var(--panel)}
+.honor .mk{font-family:var(--mono);font-size:13px;color:var(--accent)}
+.honor .yr{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.honor .t{font-size:15px}
+@media(max-width:640px){.honors{grid-template-columns:1fr}}
+
+/* contact */
+.contact{border-top:1px solid var(--line);padding:110px 0 90px}
+.contact .sec-mark{justify-content:flex-start}
+.contact h2{font-family:var(--disp);font-weight:600;font-size:clamp(40px,7vw,86px);line-height:1;letter-spacing:-.025em;margin:8px 0 36px}
+.contact h2 .acc{color:var(--accent)}
+.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;border-top:1px solid var(--line);padding-top:34px}
+.ct .k{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.ct a,.ct .v{font-family:var(--mono);font-size:15px;color:var(--ink);transition:.2s}
+.ct a:hover{color:var(--accent)}
+@media(max-width:640px){.contact-grid{grid-template-columns:1fr;gap:20px}}
+
+footer{border-top:1px solid var(--line);padding:28px 0}
+.footer-in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+
+.ver-bar{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:60;display:flex;gap:0;background:rgba(250,249,244,.92);backdrop-filter:blur(10px);border:1px solid var(--line)}
+.ver-bar a{font-family:var(--mono);font-size:12px;padding:9px 16px;color:var(--soft);border-right:1px solid var(--line);transition:.2s}
+.ver-bar a:last-child{border-right:0}
+.ver-bar a.active{background:var(--ink);color:var(--paper)}
+.ver-bar a:hover:not(.active){color:var(--ink)}
+@media(max-width:560px){.ver-bar a{padding:8px 11px;font-size:11px}}
+
+/* ===== DYNAMIC LAYER ===== */
+/* scroll progress */
+.progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--accent);z-index:60;transition:width .1s linear}
+/* cursor follow */
+.cursor-dot{position:fixed;top:0;left:0;width:34px;height:34px;border:1px solid var(--accent);border-radius:50%;z-index:55;pointer-events:none;transform:translate(-50%,-50%);transition:width .25s,height .25s,background .25s,opacity .3s;mix-blend-mode:multiply;opacity:0}
+.cursor-dot.big{width:70px;height:70px;background:rgba(31,58,214,.08)}
+@media(hover:none){.cursor-dot{display:none}}
+/* hero parallax + drift */
+.hero-grid{will-change:transform}
+h1.name{transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+/* magnetic buttons */
+.btn,.nav-cta{will-change:transform}
+/* stats strip */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line)}
+.stat{padding:42px 30px;border-right:1px solid var(--line);position:relative;overflow:hidden}
+.stat:last-child{border-right:0}
+.stat::after{content:'';position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--accent);transition:width 1.1s cubic-bezier(.2,.7,.2,1)}
+.stat.in::after{width:100%}
+.stat .n{font-family:var(--disp);font-weight:600;font-size:clamp(40px,5vw,64px);line-height:1;letter-spacing:-.02em;display:flex;align-items:baseline}
+.stat .n .suf{font-size:.42em;color:var(--accent);margin-left:4px;font-weight:500}
+.stat .l{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:12px;text-transform:uppercase;letter-spacing:.04em}
+@media(max-width:760px){.stats{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:560px){.stats{grid-template-columns:1fr}.stat{border-right:0;border-bottom:1px solid var(--line)}.stat:last-child{border-bottom:0}}
+/* reveal stagger children */
+.reveal.stagger>*{opacity:0;transform:translateY(22px);transition:opacity .7s,transform .7s}
+.reveal.stagger.in>*{opacity:1;transform:none}
+.reveal.stagger.in>*:nth-child(1){transition-delay:.05s}
+.reveal.stagger.in>*:nth-child(2){transition-delay:.13s}
+.reveal.stagger.in>*:nth-child(3){transition-delay:.21s}
+.reveal.stagger.in>*:nth-child(4){transition-delay:.29s}
+/* experience hover accent */
+.exp-item{position:relative;padding-left:0;transition:padding .35s,background .35s}
+.exp-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--accent);transform:scaleY(0);transform-origin:top;transition:transform .4s}
+.exp-item:hover::before{transform:scaleY(1)}
+.exp-item:hover{padding-left:20px}
+/* section watermark number */
+.head{position:relative;overflow:visible}
+.wm{position:absolute;right:0;top:-30px;font-family:var(--disp);font-weight:700;font-size:140px;line-height:1;color:var(--accent);opacity:.05;pointer-events:none;letter-spacing:-.04em;will-change:transform}
+@media(max-width:760px){.wm{display:none}}
+/* link underline grow */
+.nav-links a::after{content:'';position:absolute;left:0;bottom:-5px;height:1px;width:0;background:var(--accent);transition:width .3s}
+.nav-links a:hover::after{width:100%}
+/* chip & honor hover lift */
+.skill{transition:transform .3s}
+.skill:hover{transform:translateY(-4px)}
+/* bouncy name */
+.lt{display:inline-block;animation:wave 2.9s ease-in-out infinite;transition:color .2s,transform .2s;will-change:transform}
+@keyframes wave{0%,55%,100%{transform:translateY(0)}26%{transform:translateY(-.13em)}}
+h1.name .lt:hover{animation-play-state:paused;color:var(--accent);transform:translateY(-.22em) scale(1.06) rotate(-3deg)}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="frame"></div>
+
+<nav id="nav">
+  <div class="nav-in">
+    <div class="brand"><span class="sq"></span>JASMINE <span class="cn">陈佳欣</span></div>
+    <div class="nav-links">
+      <a href="#about"><span>01</span>关于</a>
+      <a href="#exp"><span>02</span>经历</a>
+      <a href="#skills"><span>03</span>技能</a>
+      <a href="#honors"><span>04</span>荣誉</a>
+    </div>
+    <a class="nav-cta" href="assets/Chen-Jiaxin-Resume.docx" download>下载简历 ↓</a>
+  </div>
+</nav>
+
+<header class="wrap">
+  <div class="meta-row an d1">
+    <div class="meta-cell"><div class="k">Role / 目标岗位</div><div class="v acc">海外电商运营</div></div>
+    <div class="meta-cell"><div class="k">Base / 所在地</div><div class="v">上海 Shanghai</div></div>
+    <div class="meta-cell"><div class="k">Language / 语言</div><div class="v">中文 · English</div></div>
+    <div class="meta-cell"><div class="k">Status / 状态</div><div class="v">硕士已录取 · 可入职</div></div>
+  </div>
+  <div class="hero-grid">
+    <div>
+      <div class="sec-mark an d1">Profile / 个人主页</div>
+      <h1 class="name an d2">Jasmine<span class="sub">陈佳欣 · <b>Cross-border E-commerce Operations</b></span></h1>
+      <p class="hero-tag an d3">以语言为底色，用 AI 驱动跨境增长。<span class="en">A bilingual operator turning language & AI into cross-border growth.</span></p>
+      <div class="hero-cta an d4">
+        <a class="btn btn-primary" href="#contact">联系我 →</a>
+        <a class="btn btn-ghost" href="assets/Chen-Jiaxin-Resume.docx" download>下载简历</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="ticker">
+  <div class="ticker-track">
+    <span>跨境电商 CROSS-BORDER</span><span><b>/</b></span><span>市场调研 RESEARCH</span><span><b>/</b></span><span>AI 运营 AUTOMATION</span><span><b>/</b></span><span>双语沟通 BILINGUAL</span><span><b>/</b></span><span>内容宣传 CONTENT</span><span><b>/</b></span>
+    <span>跨境电商 CROSS-BORDER</span><span><b>/</b></span><span>市场调研 RESEARCH</span><span><b>/</b></span><span>AI 运营 AUTOMATION</span><span><b>/</b></span><span>双语沟通 BILINGUAL</span><span><b>/</b></span><span>内容宣传 CONTENT</span><span><b>/</b></span>
+  </div>
+</div>
+
+<div class="wrap">
+<section style="padding:64px 0 0">
+  <div class="stats reveal" id="stats">
+    <div class="stat"><div class="n"><span class="count" data-to="15">0</span><span class="suf">%</span></div><div class="l">月度办公降本</div></div>
+    <div class="stat"><div class="n"><span class="count" data-to="3">0</span><span class="suf">+</span></div><div class="l">AI 效率工具栈</div></div>
+    <div class="stat"><div class="n"><span class="count" data-to="4">0</span></div><div class="l">荣誉奖项</div></div>
+  </div>
+</section>
+</div>
+
+<div class="wrap">
+<section id="about">
+  <div class="head reveal"><span class="wm">01</span><div class="label"><span class="num">01</span> / SECTION</div><h2>关于我<small>PROFILE / EDUCATION</small></h2></div>
+  <div class="about">
+    <div class="reveal">
+      <p class="lead">商务英语本科，<em>上海大学英语笔译硕士已录取待入学</em>。具备扎实的中英文读写表达，拥有资料整理、跨部门协作、市场调研与线上宣传的实战基础。</p>
+      <p class="body">做事细致、执行力强，适合从外贸、跨境电商、进出口及运营相关岗位起步并持续发展。尤其擅长把 AI 工具嵌入日常运营——让内容生产、平台宣传与流程推进的效率成倍提升。</p>
+    </div>
+    <div class="edu reveal">
+      <div class="edu-item"><div class="yr">2026 —</div><div><div class="sch">上海大学 <span class="tag">硕士 · 已录取</span></div><div class="deg">英语笔译专业硕士 · 2026.09 待入学</div></div></div>
+      <div class="edu-item"><div class="yr">2022 – 26</div><div><div class="sch">上海商学院 <span class="tag">本科</span></div><div class="deg">商务英语</div></div></div>
+      <div class="edu-item"><div class="yr">2023 – 25</div><div><div class="sch">华东政法大学 <span class="tag">跨校辅修</span></div><div class="deg">法学</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="exp">
+  <div class="head reveal"><span class="wm">02</span><div class="label"><span class="num">02</span> / SECTION</div><h2>实践经历<small>EXPERIENCE</small></h2></div>
+  <div class="reveal">
+    <div class="exp-item">
+      <div class="exp-meta"><div class="date">2026.03 — 2026.06</div><div class="loc">产品运营</div></div>
+      <div>
+        <div class="exp-co">维度之门有限公司 <span class="role">Product Ops</span></div>
+        <ul class="exp-body">
+          <li>统筹日常行政运营与物资采购，梳理管理流程并推动执行，使月度办公成本降低约 <b>15%</b>；负责会议组织、纪要跟进、员工活动与新人引导。</li>
+          <li>协助产品日常运营与活动策划，完成用户反馈整理、竞品信息调研，配合宣传文案与推广物料准备，并跟进上线后使用反馈。</li>
+          <li>使用 AI 工具（Claude Code、Codex）制作公司网站 / 海报，自动化微信公众号、小红书等平台宣传，大幅提升宣传效率与效果。</li>
+        </ul>
+        <div class="exp-tags"><span class="tag-pill">流程优化</span><span class="tag-pill">竞品调研</span><span class="tag-pill">AI 内容</span><span class="tag-pill">多平台运营</span></div>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-meta"><div class="date">2025.07 — 2025.09</div><div class="loc">教学助理</div></div>
+      <div>
+        <div class="exp-co">郑州九分屠雅教育咨询 <span class="role">Teaching Asst.</span></div>
+        <ul class="exp-body">
+          <li>面向雅思 4.5–5 分学生开展课后辅导，围绕词汇、语法和基础写作进行针对性答疑，支持学员课后跟进与反馈整理。</li>
+          <li>协助作业批改、词汇听写与自习管理，参与教学反馈与课堂优化讨论。</li>
+        </ul>
+        <div class="exp-tags"><span class="tag-pill">英语教学</span><span class="tag-pill">反馈整理</span><span class="tag-pill">执行配合</span></div>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-meta"><div class="date">2025.02 — 2025.06</div><div class="loc">一对一教师</div></div>
+      <div>
+        <div class="exp-co">烜韬学习平台 <span class="role">1-on-1 Tutor</span></div>
+        <ul class="exp-body">
+          <li>为学生提供一对一英语辅导，累计授课约 <b>120 小时</b>，围绕校内课程查漏补缺，获校方与家长一致好评。</li>
+          <li>根据学生薄弱点设计个性化方案，结合游戏、故事与自然拼读提升学习兴趣与参与度。</li>
+        </ul>
+        <div class="exp-tags"><span class="tag-pill">个性化方案</span><span class="tag-pill">沟通表达</span></div>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-meta"><div class="date">2024.07</div><div class="loc">社会实践</div></div>
+      <div>
+        <div class="exp-co">萃华金店 · 百年老字号 <span class="role">Core Member</span></div>
+        <ul class="exp-body">
+          <li>负责市场调研、用户访谈、数据整理及线上宣传推广，参与消费者需求分析与商业报告撰写。</li>
+        </ul>
+        <div class="exp-tags"><span class="tag-pill">市场调研</span><span class="tag-pill">用户访谈</span><span class="tag-pill">商业报告</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="head reveal"><span class="wm">03</span><div class="label"><span class="num">03</span> / SECTION</div><h2>技能 & 证书<small>SKILLS / CERTIFICATES</small></h2></div>
+  <div class="skills reveal stagger">
+    <div class="skill"><div class="k">Language / 语言</div><h3>英语能力</h3><div class="chips"><span class="chip key">TEM4 专四</span><span class="chip key">CET6 六级</span><span class="chip">CET4 四级</span></div></div>
+    <div class="skill"><div class="k">AI Tools / 工具</div><h3>AI 效率工具</h3><div class="chips"><span class="chip key">Claude Code</span><span class="chip key">Codex</span><span class="chip key">DeepSeek</span><span class="chip">海报设计</span><span class="chip">文案生成</span><span class="chip">流程提效</span></div></div>
+    <div class="skill"><div class="k">Operations / 运营</div><h3>运营 & 其他</h3><div class="chips"><span class="chip">跨境电商</span><span class="chip">市场调研</span><span class="chip">多平台宣传</span><span class="chip">普通话二级乙</span><span class="chip">二级篮球裁判</span></div></div>
+  </div>
+</section>
+
+<section id="honors">
+  <div class="head reveal"><span class="wm">04</span><div class="label"><span class="num">04</span> / SECTION</div><h2>荣誉奖项<small>HONORS & AWARDS</small></h2></div>
+  <div class="honors reveal">
+    <div class="honor"><span class="mk">★</span><span class="yr">2025</span><span class="t">校级奖学金三等奖</span></div>
+    <div class="honor"><span class="mk">⚖</span><span class="yr">2024</span><span class="t">华东政法大学跨校辅修法学优秀奖</span></div>
+    <div class="honor"><span class="mk">✦</span><span class="yr">2023</span><span class="t">第九届中国国际"互联网+"大赛校赛创意组优秀奖</span></div>
+    <div class="honor"><span class="mk">⛹</span><span class="yr">2024</span><span class="t">上海商学院第四届女子篮球联赛第一名</span></div>
+  </div>
+</section>
+</div>
+
+<div class="wrap">
+<section class="contact" id="contact">
+  <div class="sec-mark">Contact / 联系方式</div>
+  <h2>一起做出<span class="acc">跨境增长</span></h2>
+  <div class="contact-grid">
+    <div class="ct"><div class="k">Email / 邮箱</div><a href="mailto:2728670375@qq.com">2728670375@qq.com</a></div>
+    <div class="ct"><div class="k">Phone / 电话</div><a href="tel:19945693669">199 4569 3669</a></div>
+    <div class="ct"><div class="k">Resume / 简历</div><a href="assets/Chen-Jiaxin-Resume.docx" download>下载完整简历 ↓</a></div>
+  </div>
+</section>
+</div>
+
+<footer>
+  <div class="wrap footer-in"><span>© 2026 Jasmine · 陈佳欣</span><span>海外电商运营 · Cross-border E-commerce</span></div>
+</footer>
+
+<script>
+const nav=document.getElementById('nav');
+const progress=document.getElementById('progress');
+const dot=document.getElementById('cursorDot');
+const heroName=document.querySelector('h1.name');
+const heroGrid=document.querySelector('.hero-grid');
+const wms=[...document.querySelectorAll('.wm')];
+
+// split name into bouncing letters
+function splitLetters(el){if(!el)return;const t=el.firstChild;if(t&&t.nodeType===3){const w=t.textContent;const f=document.createDocumentFragment();[...w].forEach((ch,i)=>{const s=document.createElement('span');s.className='lt';s.textContent=ch;s.style.animationDelay=(i*0.07)+'s';f.appendChild(s);});el.replaceChild(f,t);}}
+splitLetters(heroName);
+
+addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',scrollY>30);
+  const h=document.documentElement;
+  const sc=h.scrollTop/(h.scrollHeight-h.clientHeight);
+  progress.style.width=(sc*100)+'%';
+  // watermark parallax
+  wms.forEach(w=>{const r=w.getBoundingClientRect();const off=(r.top-innerHeight/2)*-.06;w.style.transform='translateY('+off+'px)';});
+},{passive:true});
+
+// cursor dot
+let dx=innerWidth/2,dy=innerHeight/2,cx=dx,cy=dy;
+addEventListener('mousemove',e=>{dx=e.clientX;dy=e.clientY;dot.style.opacity='1';});
+function loop(){cx+=(dx-cx)*.18;cy+=(dy-cy)*.18;dot.style.left=cx+'px';dot.style.top=cy+'px';
+  // hero parallax (subtle)
+  if(heroName){const nx=(dx/innerWidth-.5),ny=(dy/innerHeight-.5);heroName.style.transform='translate('+(nx*14)+'px,'+(ny*8)+'px)';}
+  requestAnimationFrame(loop);}
+loop();
+document.querySelectorAll('a,button,.btn,.skill,.exp-item,.honor').forEach(el=>{
+  el.addEventListener('mouseenter',()=>dot.classList.add('big'));
+  el.addEventListener('mouseleave',()=>dot.classList.remove('big'));
+});
+
+// magnetic buttons
+document.querySelectorAll('.btn,.nav-cta').forEach(b=>{
+  b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect();const mx=e.clientX-r.left-r.width/2,my=e.clientY-r.top-r.height/2;b.style.transform='translate('+(mx*.25)+'px,'+(my*.35)+'px)';});
+  b.addEventListener('mouseleave',()=>b.style.transform='');
+});
+
+// reveal
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(e=>io.observe(e));
+
+// counters
+const cio=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){const n=e.target,to=+n.dataset.to;let c=0,step=Math.max(1,to/45);
+    const t=setInterval(()=>{c+=step;if(c>=to){c=to;clearInterval(t);}n.textContent=Math.floor(c);},20);cio.unobserve(n);}
+}),{threshold:.6});
+document.querySelectorAll('.count').forEach(e=>cio.observe(e));
+</script>
+</body>
+</html>
